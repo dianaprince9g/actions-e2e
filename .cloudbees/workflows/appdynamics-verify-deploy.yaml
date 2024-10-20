@@ -1,0 +1,31 @@
+name: appdynamics-verify-deploy
+kind: workflow
+apiVersion: automation.cloudbees.io/v1alpha1
+on:
+  push:
+    branches:
+      - main
+jobs:
+  appdynamics-verify-deploy-job:
+    steps:
+      - name: appdynamics verify deploy
+        uses: cloudbees-io/appdynamics-verify-deploy@v1
+        with:
+          url: ${{ vars.APPDYN_URL }}
+          client-id: ${{ secrets.APPDYN_CLIENT_ID }}
+          client-secret: ${{ secrets.APPDYN_CLIENT_SECRET }}
+          grant-type: client_credentials
+          app-name: Test_App
+          duration: "10000"
+          event-types: '["APPLICATION_CRASH","APPLICATION_ERROR"]'
+          health-rules: '["Business Transaction Health","CPU utilization is too high"]'
+      - name: Notify failures
+        if: ${{ failure() }}
+        uses: ./actions/notify-slack-action
+        with:
+          webhook-url: ${{ secrets.CBP_BT_SLACK_WEBHOOK_URL }}
+          action-name: appdynamics-verify-deploy
+env:
+  APPDYN_URL: https://painted202410190956305.saas.appdynamics.com
+  APPDYN_CLIENT_ID: painted202410190956305
+  APPDYN_CLIENT_SECRET: 972h9sebrg49
