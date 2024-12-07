@@ -18,4 +18,4 @@ jobs:
       - name: Say hello
         uses: ./hello-world
         with:
-          name: "${{ inputs.text }}"
+          name: "John"

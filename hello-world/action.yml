@@ -17,4 +17,4 @@ runs:
       uses: docker://alpine:3.18
       shell: sh
       run: |
-        echo "Hello ${inputs.name}!"
+        echo "Hello ${{ inputs.name }}!"
