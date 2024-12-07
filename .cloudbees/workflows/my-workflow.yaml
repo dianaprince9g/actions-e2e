@@ -13,12 +13,9 @@ on:
         required: true
         description: Text input to say hello
 jobs:
-  build:
+  hello-world-job:
     steps:
       - name: Say hello
-        uses: docker://golang:1.20.3-alpine3.17
-        shell: sh
+        uses: ./hello-world
         with:
-          args: "${{ inputs.text }}"
-        run: |
-          echo "hello $args"
+          name: "${{ inputs.text }}"
