@@ -1,20 +1,29 @@
+action.yml:
 ---
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: action
-name: Hello World
-description: Prints a greeting message with the given name
+name: Dispatch Workflows
+description: Dispatch workflows for specified org and component
 inputs:
-  name:
-    description: The name to greet
+  orgComponentData:
+    description: JSON object with org and component details
     required: true
-    default: World
-    
+    default: '{}'
+
 runs:
   using: composite
   steps:
-    - name: Greet the user
-      id: greet-user
+    - name: Parse and Dispatch
+      id: parse-and-dispatch
       uses: docker://alpine:3.18
       shell: sh
       run: |
-        echo "Hello ${{ inputs.name }}!"
+        echo "Received JSON: ${{ inputs.orgComponentData }}"
+        echo '${{ inputs.orgComponentData }}' > org-component.json
+        cat org-component.json
+        jq -c '.[]' org-component.json | while read entry; do
+          org=$(echo "$entry" | jq -r '.org')
+          component=$(echo "$entry" | jq -r '.component')
+          echo "Dispatching for Org: $org, Component: $component"
+          # Add dispatch logic here
+        done

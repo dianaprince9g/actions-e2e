@@ -27,10 +27,13 @@ jobs:
         with:
           names: "John,Jane,Alex"
 
-  # dispatch-workflows-job:
-  #   steps:
-  #     - name: Dispatch Workflows
-  #       uses: ./dispatch-workflows
-  #       with:
-  #         org: ${{ vars.SERVICENOW_URL }}
-  #         component: ${{ secrets.SERVICENOW_USERNAME }}
+  dispatch-workflows-job:
+    steps:
+      - name: Dispatch Workflows
+        uses: ./dispatch-workflows
+        with:
+          orgComponentData: >
+            [
+              { "org": "org1-url", "component": "component-id1" },
+              { "org": "org2-url", "component": "component-id2" }
+            ]
