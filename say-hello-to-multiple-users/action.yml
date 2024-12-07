@@ -1,0 +1,28 @@
+---
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: action
+name: Hello World
+description: Prints greeting messages for the given names
+inputs:
+  names:
+    description: An array of names to greet
+    required: true
+    type: array
+    default: [] # Default to an empty list
+
+runs:
+  using: composite
+  steps:
+    - name: Greet the users
+      id: greet-users
+      uses: docker://alpine:3.18
+      shell: sh
+      run: |
+        if [ -z "${{ inputs.names }}" ]; then
+          echo "No names provided to greet."
+          exit 1
+        fi
+
+        for name in ${${{ inputs.names }}[@]}; do
+          echo "Hello $name!"
+        done

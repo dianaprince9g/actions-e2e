@@ -19,3 +19,21 @@ jobs:
         uses: ./hello-world
         with:
           name: "John"
+
+  hello-world-to-multiple-users-job:
+    steps:
+      - name: Say hello to multiple users
+        uses: ./say-hello-to-multiple-users
+        with:
+          names:
+            - "John"
+            - "Jane"
+            - "Alex"
+
+  # dispatch-workflows-job:
+  #   steps:
+  #     - name: Dispatch Workflows
+  #       uses: ./dispatch-workflows
+  #       with:
+  #         org: ${{ vars.SERVICENOW_URL }}
+  #         component: ${{ secrets.SERVICENOW_USERNAME }}

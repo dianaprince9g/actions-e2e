@@ -1,0 +1,20 @@
+---
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: action
+name: Hello World
+description: Prints a greeting message with the given name
+inputs:
+  name:
+    description: The name to greet
+    required: true
+    default: World
+    
+runs:
+  using: composite
+  steps:
+    - name: Greet the user
+      id: greet-user
+      uses: docker://alpine:3.18
+      shell: sh
+      run: |
+        echo "Hello ${{ inputs.name }}!"
