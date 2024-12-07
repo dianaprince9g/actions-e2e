@@ -5,10 +5,9 @@ name: Hello World
 description: Prints greeting messages for the given names
 inputs:
   names:
-    description: An array of names to greet
+    description: A comma-separated list of names to greet
     required: true
-    type: array
-    default: [] # Default to an empty list
+    default: "World"
 
 runs:
   using: composite
@@ -23,6 +22,6 @@ runs:
           exit 1
         fi
 
-        for name in ${${{ inputs.names }}[@]}; do
+        for name in $(echo "${{ inputs.names }}" | tr ',' '\n'); do
           echo "Hello $name!"
         done

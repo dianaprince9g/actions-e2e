@@ -25,10 +25,7 @@ jobs:
       - name: Say hello to multiple users
         uses: ./say-hello-to-multiple-users
         with:
-          names:
-            - "John"
-            - "Jane"
-            - "Alex"
+          names: "John,Jane,Alex"
 
   # dispatch-workflows-job:
   #   steps:
