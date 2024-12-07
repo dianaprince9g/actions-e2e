@@ -32,7 +32,7 @@ jobs:
       - name: Dispatch Workflows
         uses: ./dispatch-workflows
         with:
-          orgComponentData: >
+          orgComponentData: |
             [
               { "org": "org1-url", "component": "component-id1" },
               { "org": "org2-url", "component": "component-id2" }
