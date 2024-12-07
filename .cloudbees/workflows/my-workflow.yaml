@@ -11,12 +11,14 @@ on:
         type: string
         default: world
         required: true
-        description: world
+        description: Text input to say hello
 jobs:
   build:
     steps:
       - name: Say hello
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
+        env:
+          INPUT_TEXT: "${{ inputs.text }}" # Pass the input as an environment variable
         run: |
-          echo "hello ${{ inputs.text }}"
+          echo "hello $INPUT_TEXT"
