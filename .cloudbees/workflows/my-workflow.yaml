@@ -19,6 +19,6 @@ jobs:
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         with:
-          text: "${{ inputs.text }}"
+          args: "${{ inputs.text }}"
         run: |
-          echo "hello $text"
+          echo "hello $args"
